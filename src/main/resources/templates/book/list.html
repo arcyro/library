@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Books</h1>
+
+<table>
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Title</th>
+        <th>Author</th>
+        <th>Isbn</th>
+    </tr>
+    <tbody>
+    <tr th:each="book : ${books}">
+        <td th:text="${book.id}">Id</td>
+        <td th:text="${book.title}">Title</td>
+        <td th:text="${book.author}">Author</td>
+        <td th:text="${book.isbn}">Isbn</td>
+    </tbody>
+    </thead>
+</table>
+</body>
+</html>
