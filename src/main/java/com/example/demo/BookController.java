@@ -3,10 +3,7 @@ package com.example.demo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -34,6 +31,25 @@ public class BookController {
 
     @PostMapping("/new")
     public String addBook(Book book) {
+        bookRepository.save(book);
+        return "redirect:/book/list";
+    }
+
+    @GetMapping("/delete")
+    public String deleteBook(@RequestParam Long id) {
+        bookRepository.deleteById(id);
+        return "redirect:/book/list";
+    }
+
+    @GetMapping("/edit")
+    public String showEditBookForm(@RequestParam Long id, Model model) {
+        Book book = bookRepository.findById(id).orElse(null);
+        model.addAttribute("book", book);
+        return "book/edit";
+    }
+
+    @PostMapping("/edit")
+    public String editBook(@ModelAttribute Book book) {
         bookRepository.save(book);
         return "redirect:/book/list";
     }
