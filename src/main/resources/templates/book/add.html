@@ -1,18 +1,40 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Book</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<form method="post" action="/book/new">
-    <label for="title">Title:</label><br>
-    <input type="text" id="title" name="title"><br>
-    <label for="author">Author:</label><br>
-    <input type="text" id="author" name="author"><br>
-    <label for="isbn">Isbn:</label><br>
-    <input type="text" id="isbn" name="isbn"><br><br>
-    <input type="submit" value="Submit">
-</form>
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Add a New Book</h1>
+    <form method="post" action="/book/new" class="border p-4 rounded shadow" th:object="${book}">
+        <div class="mb-3">
+            <label  class="form-label">Publisher:</label>
+            <select th:field="*{publisher}" class="form-control">
+                <option th:each="publisher : ${publishers}"
+                        th:value="${publisher.id}"
+                        th:text="${publisher.name}"></option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="title" class="form-label">Title:</label>
+            <input th:field="*{title}" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label for="author" class="form-label">Author:</label>
+            <input type="text" id="author" name="author" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label for="isbn" class="form-label">ISBN:</label>
+            <input type="text" id="isbn" name="isbn" class="form-control" required>
+        </div>
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

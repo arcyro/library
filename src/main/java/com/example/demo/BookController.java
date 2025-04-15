@@ -12,9 +12,11 @@ import java.util.List;
 public class BookController {
 
     private final BookRepository bookRepository;
+    private final PublisherRepository publisherRepository;
 
-    public BookController(BookRepository bookRepository) {
+    public BookController(BookRepository bookRepository, PublisherRepository publisherRepository) {
         this.bookRepository = bookRepository;
+        this.publisherRepository = publisherRepository;
     }
 
     @GetMapping("/list")
@@ -25,6 +27,7 @@ public class BookController {
     }
     @GetMapping("/new")
     public String showAddBookForm(Model model) {
+        model.addAttribute("publishers", publisherRepository.findAll());
         model.addAttribute("book", new Book());
         return "book/add";
     }
